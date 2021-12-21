@@ -30,7 +30,7 @@ export class Screen {
         : this.ctx.fillRect(x, y, width, height);
         this.ctx.closePath();
     }
-    drawText({font= "30px Arial", color = '#000000', x = 10, y = 10, text = 'NO USER TEXT' }) {
+    drawText({font = "30px Arial", color = '#000000', x = 10, y = 10, text = 'NO USER TEXT' }) {
         this.ctx.font = font;
         this.ctx.fillStyle = color;
         this.ctx.fillText(text, x, y);
@@ -51,8 +51,8 @@ export class Screen {
     drawScene(scene) {
         this.draw(scene.background);
         for (let el in scene.objects) {
-            if (el.body) this.draw(el.body);
-            if (el.text) this.drawText(el.text);
+            if (scene.objects[el].body) this.draw(scene.objects[el].body);
+            if (scene.objects[el].text) this.drawText(scene.objects[el].text);
         }
     }
 }
