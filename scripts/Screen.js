@@ -1,4 +1,5 @@
 import { Camera } from "./Utils/Camera.js";
+import { ImageLoader } from "./Utils/ImageLoader.js";
 
 export class Screen {
     constructor({width = 200, height = 200}) {
@@ -9,6 +10,7 @@ export class Screen {
         this.cnv.height = this.height;
         this.ctx = this.cnv.getContext('2d');
         this.camera = new Camera();
+        this.loader = new ImageLoader();
     }
 
     setSize({width, height}) {
@@ -22,11 +24,11 @@ export class Screen {
         this.ctx.clearRect(0, 0, this.width, this.height);
     }
 
-    draw({x = 0, y = 0, color = '#000000', image = null, width = 10, height = 10}) {
+    draw({x = 0, y = 0, color = '#000000', texture = null, width = 10, height = 10}) {
         this.ctx.beginPath();
         this.ctx.fillStyle = color;
         image
-        ? this.ctx.drawImage(image, x, y, width, height)
+        ? this.ctx.drawImage(texture.img, texture.sx, texture.sy, width, height, x, y, width, height)
         : this.ctx.fillRect(x, y, width, height);
         this.ctx.closePath();
     }
@@ -41,7 +43,7 @@ export class Screen {
             x: obj.position.x + this.camera.position.x, 
             y: obj.position.y + this.camera.position.y, 
             color: obj.color, 
-            image: obj.image, 
+            texture: obj.texture, 
             width: obj.size.width, 
             height: obj.size.height
         })
